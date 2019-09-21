@@ -13,7 +13,8 @@
     <ul>
         {% for article in curr_page.object_list %}
             <li>
-                <h3><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h3>
+                <h3><a href="{% url 'detail' article.id %}">{{ article.title }} [
+                    {{ article.platform }}]</a></h3>
             </li>
         {% endfor %}
     </ul>
