@@ -17,3 +17,15 @@ class HomeView(APIView):
         except PageNotAnInteger:
             curr_page = paginator.page(1)
         return render(request, 'home.html', locals())
+
+
+class CategoryView(APIView):
+    def get(self, request, category):
+        articles = Article.objects.filter(title__icontains=category).order_by('title')
+        page = request.GET.get('page', 1)
+        paginator = Paginator(articles, 11, request=request)
+        try:
+            curr_page = paginator.page(page)
+        except PageNotAnInteger:
+            curr_page = paginator.page(1)
+        return render(request, 'home.html', locals())
