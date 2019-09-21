@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+</head>
+<body style="background-color: beige">
+<div style="width: 100%; margin: 0 200px">
+
+    <ul>
+        {% for article in curr_page.object_list %}
+            <li>
+                <h3><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h3>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="pagelist">
+            <a title="Total record">&nbsp;<b>共 {{ curr_page.paginator.num_pages }} 页</b></a>
+            {% if curr_page.has_previous %}
+                <a href="?{{ curr_page.previous_page_number.querystring }}">上一页</a>
+            {% endif %}
+            {% for page in curr_page.pages %}
+                {% if page %}
+                    {% ifequal page curr_page.number %}
+                        <b>{{ page }}</b>
+                    {% else %}
+                        <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                    {% endifequal %}
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}
+            {% if curr_page.has_next %}
+                <a href="?{{ curr_page.next_page_number.querystring }}">下一页</a>
+            {% endif %}
+
+        </div>
+</div>
+
+</body>
+</html>
