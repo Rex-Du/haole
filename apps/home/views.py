@@ -11,7 +11,7 @@ class HomeView(APIView):
     def get(self, request):
         articles = Article.objects.order_by('title')
         page = request.GET.get('page', 1)
-        paginator = Paginator(articles, 13, request=request)
+        paginator = Paginator(articles, 11, request=request)
         try:
             curr_page = paginator.page(page)
         except PageNotAnInteger:
