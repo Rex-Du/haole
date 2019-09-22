@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from home.models import Article
 
+from rest_framework.authentication import BasicAuthentication
 
 # Create your views here.
 
