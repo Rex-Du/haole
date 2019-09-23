@@ -14,7 +14,8 @@ class HomeView(APIView):
     def get(self, request):
         keyword = request.GET.get('keyword')
         if keyword:
-            articles = Article.objects.filter(title__icontains=keyword).order_by('title')
+            articles = Article.objects.filter(title__icontains=keyword).order_by('title').values(
+                'id', 'title', 'platform')
         else:
             articles = Article.objects.order_by('title')
         page = request.GET.get('page', 1)
