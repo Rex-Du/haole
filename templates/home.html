@@ -6,7 +6,6 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"/>
     <title>Haole</title>
-    <link href="{% static 'css/index.css' %}" rel="stylesheet">
 </head>
 <body style="background-color: beige">
 {#<div style="width: 100%; margin: 0 20px">#}
@@ -23,7 +22,7 @@
             </li>
         {% endfor %}
     </ul>
-    <div class="pagelist">
+    <div>
         <a title="Total record">&nbsp;<b>共 {{ curr_page.paginator.num_pages }} 页</b></a>
         {% if curr_page.has_previous %}
             <a href="?{{ curr_page.previous_page_number.querystring }}">上一页</a>
@@ -33,7 +32,7 @@
                 {% ifequal page curr_page.number %}
                     <b>{{ page }}</b>
                 {% else %}
-                    <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                    <a href="?{{ page.querystring }}">{{ page }}</a>
                 {% endifequal %}
             {% else %}
                 ...
