@@ -16,5 +16,4 @@ class UserLoginMiddleware(MiddlewareMixin):
     def process_request(self, request):
         user = request.user
         if not user.is_authenticated and request.path != reverse('admin:login'):
-
-            return redirect(to='admin:login')
+            return redirect(to=reverse('admin:login') + "?next=/")
