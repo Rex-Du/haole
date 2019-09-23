@@ -17,7 +17,7 @@ class HomeView(APIView):
             articles = Article.objects.filter(title__icontains=keyword).order_by('title').values(
                 'id', 'title', 'platform')
         else:
-            articles = Article.objects.order_by('title')
+            articles = Article.objects.order_by('title').values('id', 'title', 'platform')
         page = request.GET.get('page', 1)
         paginator = Paginator(articles, 10, request=request)
         try:
