@@ -4,6 +4,7 @@
     <list default="true" id="c856bc64-33d7-4f59-9dbf-1de3b49d7d44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/utils/middlewares.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/utils/middlewares.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/haole/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/haole/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +140,7 @@
       <updated>1569074190430</updated>
       <workItem from="1569074192779" duration="10384000" />
       <workItem from="1569142519221" duration="9336000" />
-      <workItem from="1569200956957" duration="2709000" />
+      <workItem from="1569200956957" duration="7027000" />
     </task>
     <servers />
   </component>
@@ -158,26 +159,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$USER_HOME$/Envs/blog/Lib/site-packages/django/contrib/admin/sites.py</url>
-          <line>398</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$USER_HOME$/Envs/blog/Lib/site-packages/django/contrib/admin/sites.py</url>
-          <line>371</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/apps/utils/middlewares.py</url>
-          <line>19</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
