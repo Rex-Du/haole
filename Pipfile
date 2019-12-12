@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "http://mirrors.tencentyun.com/pypi/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+uwsgi = "*"
+django = "==2.2.0"
+djangorestframework = "*"
+mysqlclient = "*"
+django-pure-pagination = "*"
+elasticsearch = "*"
+
+[requires]
+python_version = "3.6"
