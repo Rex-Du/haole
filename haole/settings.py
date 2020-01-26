@@ -221,3 +221,5 @@ if not os.path.exists(BASE_LOG_DIR):
 #         },
 #     }
 # }
+
+APPEND_SLASH=False

@@ -14,6 +14,7 @@ class Article(models.Model):
     add_time = models.DateTimeField(blank=True, null=True)
     platform = models.CharField(max_length=100, blank=True, null=True)
     platform_url = models.CharField(max_length=100, blank=True, null=True)
+    status = models.IntegerField(default=1, null=False)
 
     class Meta:
         verbose_name = '文章'

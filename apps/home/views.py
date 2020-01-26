@@ -1,7 +1,10 @@
+import json
 from math import ceil
 
 from django.core.paginator import PageNotAnInteger
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from pure_pagination import Paginator
 from pure_pagination.paginator import Page
 from rest_framework.views import APIView
@@ -47,10 +50,20 @@ class HomeView(APIView):
             articles = [result.get('_source') for result in results.get('hits').get('hits')]
             curr_page = Page(articles, page, ESPaginator(request, per_page, count=results.get('hits').get('total')))
         else:
-            articles = Article.objects.order_by('title').values('id', 'title', 'platform')
+            articles = Article.objects.filter(status=1).order_by('title').values('id', 'title', 'platform')
             paginator = Paginator(articles, per_page, request=request)
             try:
                 curr_page = paginator.page(page)
             except PageNotAnInteger:
                 curr_page = paginator.page(1)
         return render(request, 'home.html', locals())
+
+
+class DeleteView(APIView):
+    @csrf_exempt
+    def post(self, request):
+        id = request.POST.get('id')
+        article = Article.objects.get(id=id)
+        article.status = 0
+        article.save()
+        return HttpResponse(json.dumps({"scu": False}))
