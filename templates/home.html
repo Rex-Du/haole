@@ -6,44 +6,62 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"/>
     <title>Haole</title>
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet"></link>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'jquery.js' %}"></script>
 </head>
 <body style="background-color: beige">
-{#<div style="width: 100%; margin: 0 20px">#}
 <div style="width: 100%">
     <form action="{% url 'home' %}" method="get">
-        <input type="text" name="keyword">
-        <input type="submit">
+        <input type="text" name="keyword"  >
+        <input type="submit" class="btn btn-default">
     </form>
     <ul>
         {% for article in curr_page.object_list %}
-            <li>
-                <h3><a href="{% url 'detail' article.id %}">{{ article.title }} [
-                    {{ article.platform }}]</a></h3>
-            </li>
+        <li>
+            <p class=".lead">
+                <a href="{% url 'detail' article.id %}">{{ article.title }} [{{ article.platform }}]</a>
+                <button onclick="deletearticle({{ article.id }})" id="logo-{{ article.id }}"><span aria-hidden="true" >&times;</span></button>
+            </p>
+
+        </li>
         {% endfor %}
     </ul>
     <div>
-        <a title="Total record">&nbsp;<b>共 {{ curr_page.paginator.num_pages }} 页</b></a>
+<!--        <a title="Total record">&nbsp;<b>共 {{ curr_page.paginator.num_pages }} 页</b></a>-->
         {% if curr_page.has_previous %}
-            <a href="?{{ curr_page.previous_page_number.querystring }}">上一页</a>
+            <a href="?{{ curr_page.previous_page_number.querystring }}"  class="btn btn-info  active" role="button">上一页</a>
         {% endif %}
-        {% for page in curr_page.pages %}
-            {% if page %}
-                {% ifequal page curr_page.number %}
-                    <b>{{ page }}</b>
-                {% else %}
-                    <a href="?{{ page.querystring }}">{{ page }}</a>
-                {% endifequal %}
-            {% else %}
-                ...
-            {% endif %}
-        {% endfor %}
+<!--        {% for page in curr_page.pages %}-->
+<!--            {% if page %}-->
+<!--                {% ifequal page curr_page.number %}-->
+<!--                    <b>{{ page }}</b>-->
+<!--                {% else %}-->
+<!--                    <a href="?{{ page.querystring }}">{{ page }}</a>-->
+<!--                {% endifequal %}-->
+<!--            {% else %}-->
+<!--                ...-->
+<!--            {% endif %}-->
+<!--        {% endfor %}-->
+        {{ curr_page.number }}/{{ curr_page.paginator.num_pages }}
         {% if curr_page.has_next %}
-            <a href="?{{ curr_page.next_page_number.querystring }}">下一页</a>
+            <a href="?{{ curr_page.next_page_number.querystring }}" class="btn btn-info  active" role="button">下一页</a>
         {% endif %}
 
     </div>
 </div>
-
+<script>
+    function deletearticle(article_id) {
+        $.ajax({
+            url: "/delete",
+            data: {id: article_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+               document.getElementById("logo-"+article_id).innerHTML="<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>"
+            }
+        })
+    }
+</script>
 </body>
 </html>
