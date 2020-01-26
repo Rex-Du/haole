@@ -41,7 +41,7 @@ class HomeView(APIView):
                 },
                 "_source": ["id", "title", "platform"],
                 "size": per_page,
-                "from": page
+                "from": (int(page)-1)*per_page
             }
             results = es.search(index='haolearticle', body=body)
             articles = [result.get('_source') for result in results.get('hits').get('hits')]
