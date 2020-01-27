@@ -27,11 +27,14 @@ PUT haolearticle
         "title":{
           "type":"text"
         },
-        "content_html":{
-          "type":"text"
-        },
+        "status":{
+            "type":"keyword"
+            },
         "platform":{
           "type":"keyword"
+        },
+                "content_html":{
+          "type":"text"
         }
       }
     }
@@ -46,13 +49,13 @@ def query_data_from_mysql():
     conn = MySQLdb.connect(host='localhost', database='haolearticle', user='root', passwd='rootroot', port=3306, charset="utf8")
     cursor = conn.cursor()
 
-    cursor.execute("select id, title, content_html, platform from home_article")
+    cursor.execute("select id, title, content_html, platform, status from home_article")
 
     results = cursor.fetchall()
     data = list()
     for result in results:
         # print(result)
-        data.append({'id': result[0], 'title': result[1], 'content_html': result[2], 'platform': result[3]})
+        data.append({'id': result[0], 'title': result[1], 'content_html': result[2], 'platform': result[3], 'status': result[4]})
     print(f'mysql end , cost: {time.time() - start_time}')
     return data
 

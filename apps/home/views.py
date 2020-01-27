@@ -42,7 +42,7 @@ class HomeView(APIView):
                         }
                     }
                 },
-                "_source": ["id", "title", "platform"],
+                "_source": ["id", "title", "platform", "status"],
                 "size": per_page,
                 "from": (int(page)-1)*per_page
             }
