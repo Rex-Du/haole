@@ -106,7 +106,8 @@ def query_data_from_mysql():
 def put_data_to_es(data):
     print('es start ....')
     start_time = time.time()
-    es = Elasticsearch(['111.229.61.201:9200'])
+    es = Elasticsearch(['localhost:9200'])
+    #es = Elasticsearch(['111.229.61.201:9200'])
     actions = list()
     for d in data:
         action = {
