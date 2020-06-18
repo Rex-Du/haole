@@ -99,7 +99,7 @@ def query_data_from_mysql():
         # print(result)
         data.append({'id': result[0], 'title': result[1], 'content_html': result[2], 'platform': result[3],
                      'status': result[4]})
-    print(f'mysql end , cost: {time.time() - start_time}')
+    print(f'mysql end {data.__len__()}, cost: {time.time() - start_time}')
     return data
 
 

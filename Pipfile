@@ -1,6 +1,6 @@
 [[source]]
 name = "pypi"
-url = "http://mirrors.tencentyun.com/pypi/simple"
+url = "http://mirrors.aliyun.com/pypi/simple/"
 verify_ssl = true
 
 [dev-packages]
@@ -10,7 +10,6 @@ uwsgi = "*"
 django = "==2.2.0"
 djangorestframework = "*"
 mysqlclient = "*"
-django-pure-pagination = "*"
 elasticsearch = "*"
 
 [requires]
