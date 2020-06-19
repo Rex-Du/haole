@@ -14,6 +14,8 @@ from home.models import Article
 
 from rest_framework.authentication import BasicAuthentication
 
+es = Elasticsearch(["111.229.61.201:9200"])
+
 
 # Create your views here.
 class ESPaginator:
@@ -33,7 +35,6 @@ class HomeView(APIView):
         if keyword:
             # articles = Article.objects.filter(title__icontains=keyword).order_by('title').values(
             #     'id', 'title', 'platform')
-            es = Elasticsearch(["111.229.61.201:9200"])
             body = {
                 "query": {
                     "match_phrase": {
@@ -63,6 +64,8 @@ class DeleteView(APIView):
     @csrf_exempt
     def post(self, request):
         id = request.POST.get('id')
+        query = {'query': {'match': {'id': id}}}
+        es.delete_by_query(index='haolearticle', body=query)
         article = Article.objects.get(id=id)
         article.status = 0
         article.save()

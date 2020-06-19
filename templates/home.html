@@ -13,7 +13,11 @@
 <body style="background-color: beige">
 <div style="width: 100%">
     <form action="{% url 'home' %}" method="get">
-        <input type="text" name="keyword"  >
+        {% if keyword%}
+        <input type="text" name="keyword" value={{ keyword }} >
+        {% else %}
+        <input type="text" name="keyword">
+        {% endif %}
         <input type="submit" class="btn btn-default">
     </form>
     <ul>
@@ -21,7 +25,8 @@
         <li>
             <p class=".lead">
                 <a href="{% url 'detail' article.id %}">{{ article.title }} [{{ article.platform }}]</a>
-                <button onclick="deletearticle({{ article.id }})" id="logo-{{ article.id }}"><span aria-hidden="true" >&times;</span></button>
+                {% comment %} <button onclick="deletearticle({{ article.id }})" id="logo-{{ article.id }}"><span aria-hidden="true" >&times;</span></button> {% endcomment %}
+                <input type="button" onclick="deletearticle({{ article.id }})" id="logo-{{ article.id }}" value="X">
             </p>
 
         </li>
@@ -58,7 +63,7 @@
             type: "POST",
             dataType: "json",
             success: function (data) {
-               document.getElementById("logo-"+article_id).innerHTML="<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>"
+               document.getElementById("logo-"+article_id).value="√"
             }
         })
     }
