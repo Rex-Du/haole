@@ -59,7 +59,7 @@ class HomeView(APIView):
 
             cursor = connection.cursor()
             sql = f"select id, title, platform from home_article where math(`content_html`) against ('\"{keyword}\"' in boolean mode)"
-            cursor.execute()
+            cursor.execute(sql)
             results = cursor.fetchall()
             articles = list()
             for result in results:
