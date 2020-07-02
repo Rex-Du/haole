@@ -199,26 +199,26 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django': {
+        'django.db.backends': {
             'handlers': ['default', 'console'],
             'level': 'DEBUG',
             'propagate': False
         },
-        'django.request': {
-            'handlers': ['request_handler'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'scripts': {
-            'handlers': ['scprits_handler'],
-            'level': 'INFO',
-            'propagate': False
-        },
-        'home.views': {
-            'handlers': ['default', 'error'],
-            'level': 'DEBUG',
-            'propagate': True
-        },
+        # 'django.request': {
+        #     'handlers': ['request_handler'],
+        #     'level': 'DEBUG',
+        #     'propagate': False,
+        # },
+        # 'scripts': {
+        #     'handlers': ['scprits_handler'],
+        #     'level': 'INFO',
+        #     'propagate': False
+        # },
+        # 'home.views': {
+        #     'handlers': ['default', 'error'],
+        #     'level': 'DEBUG',
+        #     'propagate': True
+        # },
     }
 }
 
