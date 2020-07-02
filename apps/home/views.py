@@ -64,7 +64,7 @@ class HomeView(APIView):
             articles = list()
             for result in results:
                 article = _Article()
-                article.id = request[0]
+                article.id = result[0]
                 article.title = result[1]
                 article.content_html = result[2]
                 articles.append(article)
