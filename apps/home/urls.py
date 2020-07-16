@@ -7,10 +7,11 @@ urls:
 from django.conf.urls import url
 from django.urls import path
 
-from .views import HomeView, DeleteView
+from .views import HomeView, DeleteView, FavView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     url('delete', DeleteView.as_view(), name='delete'),
+    url('fav', FavView.as_view(), name='fav'),
 ]
 

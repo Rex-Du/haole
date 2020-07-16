@@ -15,6 +15,7 @@ class Article(models.Model):
     platform = models.CharField(max_length=100, blank=True, null=True)
     platform_url = models.CharField(max_length=100, blank=True, null=True)
     status = models.IntegerField(default=1, null=False)
+    fav = models.IntegerField(default=0, null=False)
 
     class Meta:
         verbose_name = '文章'

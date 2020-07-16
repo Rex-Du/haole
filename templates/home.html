@@ -11,46 +11,40 @@
     <script src="{% static 'jquery.js' %}"></script>
 </head>
 <body style="background-color: beige">
-<div style="width: 100%">
-    <form action="{% url 'home' %}" method="get">
+<div style="width: 100%" class="col-md-4 col-md-offset-4">
+    <form action="{% url 'home' %}" method="get" class="form-inline">
         {% if keyword%}
-        <input type="text" name="keyword" value={{ keyword }} >
+        <input type="text" name="keyword" value={{ keyword }} class="form-control">
         {% else %}
-        <input type="text" name="keyword">
+        <input type="text" name="keyword" class="form-control">
         {% endif %}
         <input type="submit" class="btn btn-default">
+        <a class="btn btn-default" href="?fav=1" role="button">收藏</a>
     </form>
+
     <ul>
         {% for article in curr_page.object_list %}
         <li>
-            <p class=".lead">
+            <p class="lead">
                 <a href="{% url 'detail' article.id %}">{{ article.title }} [{{ article.platform }}]</a>
-                {% comment %} <button onclick="deletearticle({{ article.id }})" id="logo-{{ article.id }}"><span aria-hidden="true" >&times;</span></button> {% endcomment %}
-                <input type="button" onclick="deletearticle({{ article.id }})" id="logo-{{ article.id }}" value="X">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="deletearticle({{ article.id }})"
+                      id="del-{{ article.id }}"></span>
+                <span class="glyphicon glyphicon-heart-empty" aria-hidden="true" onclick="favarticle({{ article.id }})"
+                      id="fav-{{ article.id }}"></span>
             </p>
 
         </li>
         {% endfor %}
     </ul>
     <div>
-<!--        <a title="Total record">&nbsp;<b>共 {{ curr_page.paginator.num_pages }} 页</b></a>-->
+        <!--        <a title="Total record">&nbsp;<b>共 {{ curr_page.paginator.num_pages }} 页</b></a>-->
         {% if curr_page.has_previous %}
-            <a href="?{{ curr_page.previous_page_number.querystring }}"  class="btn btn-info  active" role="button">上一页</a>
+        <a href="?{{ curr_page.previous_page_number.querystring }}" class="btn btn-info  active" role="button">上一页</a>
         {% endif %}
-<!--        {% for page in curr_page.pages %}-->
-<!--            {% if page %}-->
-<!--                {% ifequal page curr_page.number %}-->
-<!--                    <b>{{ page }}</b>-->
-<!--                {% else %}-->
-<!--                    <a href="?{{ page.querystring }}">{{ page }}</a>-->
-<!--                {% endifequal %}-->
-<!--            {% else %}-->
-<!--                ...-->
-<!--            {% endif %}-->
-<!--        {% endfor %}-->
+
         {{ curr_page.number }}/{{ curr_page.paginator.num_pages }}
         {% if curr_page.has_next %}
-            <a href="?{{ curr_page.next_page_number.querystring }}" class="btn btn-info  active" role="button">下一页</a>
+        <a href="?{{ curr_page.next_page_number.querystring }}" class="btn btn-info  active" role="button">下一页</a>
         {% endif %}
 
     </div>
@@ -63,10 +57,24 @@
             type: "POST",
             dataType: "json",
             success: function (data) {
-               document.getElementById("logo-"+article_id).value="√"
+               document.getElementById("del-"+article_id).className="glyphicon glyphicon-ok";
             }
         })
     }
+
+    function favarticle(article_id) {
+        $.ajax({
+            url: "/fav",
+            data: {id: article_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+               document.getElementById("fav-"+article_id).className="glyphicon glyphicon-heart";
+            }
+        })
+    }
+
+
 </script>
 </body>
 </html>

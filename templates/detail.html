@@ -1,13 +1,30 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"/>
     <title>{{ article.title }}</title>
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet"></link>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'jquery.js' %}"></script>
+    <style>
+        div{
+            font-size: 21px;
+        }
+        p{
+            font-size: 21px;
+        }
+        span{
+            font-size: 21px;
+        }
+
+    </style>
 </head>
 <body style="background-color: beige">
-    <div style="width: 100%;text-align: center"><h2>{{ article.title }}</h2></div>
-{#    <div style="margin: 0 300px">{{ article.content_html|safe }}</div>#}
-    <div>{{ article.content_html|safe }}</div>
+<div style="width: 100%;text-align: center"><h2>{{ article.title }}</h2></div>
+
+<div>{{ article.content_html|safe }}</div>
 </body>
 </html>
