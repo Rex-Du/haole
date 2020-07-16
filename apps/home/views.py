@@ -22,9 +22,10 @@ class HomeView(APIView):
                 id = None
                 title = None
                 content_html = None
+                fav = None
 
             cursor = connection.cursor()
-            sql = f"select id, title, platform from home_article where match(`content_html`) against ('\"{keyword}\"' in boolean mode)"
+            sql = f"select id, title, platform,fav from home_article where match(`content_html`) against ('\"{keyword}\"' in boolean mode)"
             cursor.execute(sql)
             results = cursor.fetchall()
             articles = list()
@@ -33,11 +34,12 @@ class HomeView(APIView):
                 article.id = result[0]
                 article.title = result[1]
                 article.content_html = result[2]
+                article.fav = result[3]
                 articles.append(article)
         elif fav:
-            articles = Article.objects.filter(status=1, fav=fav).order_by('title').values('id', 'title', 'platform')
+            articles = Article.objects.filter(status=1, fav=1).order_by('title').values('id', 'title', 'platform', 'fav')
         else:
-            articles = Article.objects.filter(status=1).order_by('title').values('id', 'title', 'platform')
+            articles = Article.objects.filter(status=1).order_by('title').values('id', 'title', 'platform', 'fav')
         paginator = Paginator(articles, per_page, request=request)
         try:
             curr_page = paginator.page(page)
@@ -62,5 +64,15 @@ class FavView(APIView):
         id = request.POST.get('id')
         article = Article.objects.get(id=id)
         article.fav = 1
+        article.save()
+        return HttpResponse(json.dumps({"scu": False}))
+
+
+class CancelFavView(APIView):
+    @csrf_exempt
+    def post(self, request):
+        id = request.POST.get('id')
+        article = Article.objects.get(id=id)
+        article.fav = 0
         article.save()
         return HttpResponse(json.dumps({"scu": False}))

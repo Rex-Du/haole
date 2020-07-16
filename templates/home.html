@@ -29,8 +29,15 @@
                 <a href="{% url 'detail' article.id %}">{{ article.title }} [{{ article.platform }}]</a>
                 <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="deletearticle({{ article.id }})"
                       id="del-{{ article.id }}"></span>
-                <span class="glyphicon glyphicon-heart-empty" aria-hidden="true" onclick="favarticle({{ article.id }})"
-                      id="fav-{{ article.id }}"></span>
+<!--            <p>{{ article.fav }}{{ article.title }}</p>-->
+
+                {% if article.fav %}
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" onclick="cancelfav({{ article.id }})"
+                          id="cancel-fav-{{ article.id }}"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-heart-empty" aria-hidden="true" onclick="fav({{ article.id }})"
+                          id="fav-{{ article.id }}"></span>
+                {% endif %}
             </p>
 
         </li>
@@ -62,7 +69,7 @@
         })
     }
 
-    function favarticle(article_id) {
+    function fav(article_id) {
         $.ajax({
             url: "/fav",
             data: {id: article_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
@@ -70,6 +77,18 @@
             dataType: "json",
             success: function (data) {
                document.getElementById("fav-"+article_id).className="glyphicon glyphicon-heart";
+            }
+        })
+    }
+
+    function cancelfav(article_id) {
+        $.ajax({
+            url: "/cancel",
+            data: {id: article_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+               document.getElementById("cancel-fav-"+article_id).className="glyphicon glyphicon-heart-empty";
             }
         })
     }
