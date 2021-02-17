@@ -25,7 +25,7 @@ class HomeView(APIView):
                 fav = None
 
             cursor = connection.cursor()
-            sql = f"select id, title, platform,fav from home_article where match(`content_html`) against ('\"{keyword}\"' in boolean mode)"
+            sql = f"select id, title, platform,fav from home_article where match(`content_html`) against ('\"{keyword}\"' in boolean mode) order by add_time desc "
             cursor.execute(sql)
             results = cursor.fetchall()
             articles = list()
@@ -33,7 +33,7 @@ class HomeView(APIView):
                 article = _Article()
                 article.id = result[0]
                 article.title = result[1]
-                article.content_html = result[2]
+                article.platform = result[2]
                 article.fav = result[3]
                 articles.append(article)
         elif fav:

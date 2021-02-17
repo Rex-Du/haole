@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'haolearticle',
         'USER': 'root',
         'PASSWORD': 'rootroot',
-        'HOST': 'localhost'
+        'HOST': '192.168.31.52'
     }
 }
 
